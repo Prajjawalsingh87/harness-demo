@@ -1,0 +1,194 @@
+{
+  "generated_at": "2026-10-23T16:02:01+00:00",
+  "commit": "ff86afd",
+  "healthy": false,
+  "failed": 8,
+  "checks": [
+    {
+      "id": "dependencies",
+      "name": "Vulnerable dependencies (pip-audit)",
+      "kind": "computational",
+      "area": "codebase",
+      "value": 19,
+      "budget": 0,
+      "ok": false,
+      "details": [
+        "requests 2.25.1: PYSEC-2023-74 (fixed in 2.31.0)",
+        "requests 2.25.1: PYSEC-2026-1873 (fixed in 2.32.0)",
+        "requests 2.25.1: PYSEC-2026-1872 (fixed in 2.32.4)",
+        "requests 2.25.1: PYSEC-2026-2275 (fixed in 2.33.0)",
+        "urllib3 1.26.5: PYSEC-2023-192 (fixed in 1.26.17, 2.0.6)",
+        "urllib3 1.26.5: PYSEC-2023-212 (fixed in 1.26.18, 2.0.7)",
+        "urllib3 1.26.5: PYSEC-2026-141 (fixed in 2.7.0)",
+        "urllib3 1.26.5: PYSEC-2026-1999 (fixed in 2.5.0)",
+        "urllib3 1.26.5: PYSEC-2026-1998 (fixed in 2.6.0)",
+        "urllib3 1.26.5: PYSEC-2026-1995 (fixed in 1.26.19, 2.2.2)",
+        "urllib3 1.26.5: PYSEC-2026-1994 (fixed in 2.6.0)",
+        "urllib3 1.26.5: PYSEC-2026-1996 (fixed in 2.6.3)",
+        "urllib3 1.26.5: PYSEC-2026-4177 (fixed in 2.8.0)",
+        "urllib3 1.26.5: PYSEC-2026-4175 (fixed in 2.8.0)",
+        "idna 2.10: PYSEC-2024-60 (fixed in 3.7)",
+        "idna 2.10: PYSEC-2026-215 (fixed in 3.15)",
+        "certifi 2020.12.5: PYSEC-2022-42986 (fixed in 2022.12.7)",
+        "certifi 2020.12.5: PYSEC-2023-135 (fixed in 2023.7.22)",
+        "certifi 2020.12.5: PYSEC-2026-4320 (fixed in 2026.10.19)"
+      ],
+      "files": [
+        "requirements.txt"
+      ],
+      "hint": "Upgrade each package to a fixed version, or remove packages the code never imports."
+    },
+    {
+      "id": "dead_code",
+      "name": "Dead code (vulture + unreferenced JS)",
+      "kind": "inferential",
+      "area": "codebase",
+      "value": 5,
+      "budget": 0,
+      "ok": false,
+      "details": [
+        "app/routes/orders.py:1: unused import 'json' (90% confidence)",
+        "app/services/legacy_discount.py:6: unused function 'apply_festive_discount' (60% confidence)",
+        "app/services/legacy_discount.py:11: unused function 'is_festive_code' (60% confidence)",
+        "app/services/pricing.py:21: unused function 'old_tax_rate' (60% confidence)",
+        "public/js/legacy-charts.js: file is never loaded by any HTML page"
+      ],
+      "files": [
+        "app/routes/orders.py",
+        "app/services/legacy_discount.py",
+        "app/services/pricing.py",
+        "public/js/legacy-charts.js"
+      ],
+      "hint": "Confirm each item is truly unused (search the repo), then delete it. Delete whole files that become empty."
+    },
+    {
+      "id": "weak_tests",
+      "name": "Test quality (asserts that catch real bugs)",
+      "kind": "inferential",
+      "area": "codebase",
+      "value": 3,
+      "budget": 0,
+      "ok": false,
+      "details": [
+        "tests/test_api.py::test_orders only checks that something exists or is truthy; it would pass even if the API returned wrong data or an error",
+        "tests/test_api.py::test_user only checks that something exists or is truthy; it would pass even if the API returned wrong data or an error",
+        "tests/test_api.py::test_health only checks that something exists or is truthy; it would pass even if the API returned wrong data or an error",
+        "Line coverage of app/: 91% (coverage alone does not prove the tests catch bugs)"
+      ],
+      "files": [
+        "tests/test_api.py"
+      ],
+      "hint": "Rewrite tests to assert status codes and real values (e.g. 200 with the expected fields, 404 for a missing customer)."
+    },
+    {
+      "id": "latency_orders",
+      "name": "p95 latency /api/orders [live (Vercel)]",
+      "kind": "computational",
+      "area": "runtime",
+      "value": "1852 ms",
+      "budget": "200 ms",
+      "ok": false,
+      "details": [
+        "p50 1537.5 ms, p95 1852.3 ms, DB time p95 1507.0 ms over 50 requests"
+      ],
+      "files": [
+        "app/routes/orders.py"
+      ],
+      "hint": "Look at the DB query count and slow-query checks for the cause."
+    },
+    {
+      "id": "latency_users",
+      "name": "p95 latency /api/users/{id} [live (Vercel)]",
+      "kind": "computational",
+      "area": "runtime",
+      "value": "131 ms",
+      "budget": "150 ms",
+      "ok": true,
+      "details": [
+        "p50 101.2 ms, p95 131.1 ms, DB time p95 2.1 ms over 40 requests"
+      ],
+      "files": [
+        "app/routes/users.py"
+      ],
+      "hint": "Look at the DB query count and slow-query checks for the cause."
+    },
+    {
+      "id": "db_queries",
+      "name": "DB queries per /api/orders request [live (Vercel)]",
+      "kind": "computational",
+      "area": "runtime",
+      "value": 101.0,
+      "budget": 5,
+      "ok": false,
+      "details": [
+        "Each page of 50 orders runs 101.0 queries on average: one per order for the customer and one per order for the total (N+1 pattern)"
+      ],
+      "files": [
+        "app/routes/orders.py"
+      ],
+      "hint": "Fetch the page with one query that JOINs users and aggregates order_items with GROUP BY. Keep the JSON response shape identical."
+    },
+    {
+      "id": "error_rate",
+      "name": "Error rate (HTTP 5xx) [live (Vercel)]",
+      "kind": "computational",
+      "area": "runtime",
+      "value": "1.02%",
+      "budget": "1%",
+      "ok": false,
+      "details": [
+        "/api/users/{id} returned 1 server errors out of 40 requests (lookups of customer IDs that do not exist)"
+      ],
+      "files": [
+        "app/routes/users.py"
+      ],
+      "hint": "Return HTTP 404 with a clear message when the customer does not exist instead of crashing."
+    },
+    {
+      "id": "availability",
+      "name": "Availability /api/health [live (Vercel)]",
+      "kind": "computational",
+      "area": "runtime",
+      "value": "100.0%",
+      "budget": "99%",
+      "ok": true,
+      "details": [],
+      "files": [],
+      "hint": ""
+    },
+    {
+      "id": "slow_queries",
+      "name": "Slow queries doing full table scans (EXPLAIN QUERY PLAN)",
+      "kind": "computational",
+      "area": "runtime",
+      "value": 2,
+      "budget": 0,
+      "ok": false,
+      "details": [
+        "7185x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items",
+        "1x slow: SELECT COUNT(*) AS n FROM orders WHERE user_id = ?  ->  plan: SCAN orders",
+        "1x slow: SELECT id, user_id, created_at, status FROM orders ORDER BY created_at DESC LIMIT ? OFFSET ?  ->  plan: SCAN orders USING INDEX idx_orders_created_at"
+      ],
+      "files": [
+        "migrations/"
+      ],
+      "hint": "Add a NEW migration file (e.g. migrations/002_add_indexes.sql) with CREATE INDEX for the scanned column. Never edit 001_init.sql."
+    },
+    {
+      "id": "log_anomalies",
+      "name": "Repeated log warnings",
+      "kind": "inferential",
+      "area": "runtime",
+      "value": 5806,
+      "budget": "< 100",
+      "ok": false,
+      "details": [
+        "5806x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
+      ],
+      "files": [
+        "app/services/pricing.py"
+      ],
+      "hint": "Find why the same warning fires on almost every request and fix the cause (for example a missing mapping), rather than just hiding the log."
+    }
+  ]
+}
