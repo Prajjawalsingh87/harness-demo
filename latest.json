@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T08:53:38+00:00",
+  "generated_at": "2026-10-31T08:41:59+00:00",
   "commit": "f42db7b",
   "healthy": false,
   "failed": 8,
@@ -31,7 +31,7 @@
         "idna 2.10: PYSEC-2026-215 (fixed in 3.15)",
         "certifi 2020.12.5: PYSEC-2022-42986 (fixed in 2022.12.7)",
         "certifi 2020.12.5: PYSEC-2023-135 (fixed in 2023.7.22)",
-        "certifi 2020.12.5: PYSEC-2026-4320 (fixed in 2026.10.19)"
+        "certifi 2020.12.5: PYSEC-2026-4320 (fixed in 2026.10.18)"
       ],
       "files": [
         "requirements.txt"
@@ -85,11 +85,11 @@
       "name": "p95 latency /api/orders [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "1839 ms",
+      "value": "1979 ms",
       "budget": "500 ms",
       "ok": false,
       "details": [
-        "p50 1605.2 ms, p95 1838.8 ms, DB time p95 1589.1 ms over 52 requests"
+        "p50 1606.8 ms, p95 1979.1 ms, DB time p95 1701.2 ms over 49 requests"
       ],
       "files": [
         "app/routes/orders.py"
@@ -101,11 +101,11 @@
       "name": "p95 latency /api/users/{id} [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "52 ms",
+      "value": "164 ms",
       "budget": "300 ms",
       "ok": true,
       "details": [
-        "p50 22.5 ms, p95 52.5 ms, DB time p95 1.8 ms over 40 requests"
+        "p50 103.6 ms, p95 164.4 ms, DB time p95 2.4 ms over 36 requests"
       ],
       "files": [
         "app/routes/users.py"
@@ -133,11 +133,11 @@
       "name": "Error rate (HTTP 5xx) [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "3.0%",
+      "value": "3.3%",
       "budget": "1%",
       "ok": false,
       "details": [
-        "/api/users/{id} returned 3 server errors out of 40 requests (lookups of customer IDs that do not exist)"
+        "/api/users/{id} returned 3 server errors out of 36 requests (lookups of customer IDs that do not exist)"
       ],
       "files": [
         "app/routes/users.py"
@@ -165,7 +165,7 @@
       "budget": 0,
       "ok": false,
       "details": [
-        "7200x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items",
+        "12938x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items",
         "1x slow: SELECT COUNT(*) AS n FROM orders WHERE user_id = ?  ->  plan: SCAN orders"
       ],
       "files": [
@@ -178,11 +178,11 @@
       "name": "Repeated log warnings",
       "kind": "inferential",
       "area": "runtime",
-      "value": 5814,
+      "value": 10615,
       "budget": "< 100",
       "ok": false,
       "details": [
-        "5814x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
+        "10615x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
       ],
       "files": [
         "app/services/pricing.py"
