@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T08:41:59+00:00",
+  "generated_at": "2026-11-01T09:32:38+00:00",
   "commit": "f42db7b",
   "healthy": false,
   "failed": 8,
@@ -85,11 +85,11 @@
       "name": "p95 latency /api/orders [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "1979 ms",
+      "value": "1848 ms",
       "budget": "500 ms",
       "ok": false,
       "details": [
-        "p50 1606.8 ms, p95 1979.1 ms, DB time p95 1701.2 ms over 49 requests"
+        "p50 1600.0 ms, p95 1848.1 ms, DB time p95 1585.7 ms over 54 requests"
       ],
       "files": [
         "app/routes/orders.py"
@@ -101,11 +101,11 @@
       "name": "p95 latency /api/users/{id} [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "164 ms",
+      "value": "72 ms",
       "budget": "300 ms",
       "ok": true,
       "details": [
-        "p50 103.6 ms, p95 164.4 ms, DB time p95 2.4 ms over 36 requests"
+        "p50 22.8 ms, p95 71.5 ms, DB time p95 2.4 ms over 39 requests"
       ],
       "files": [
         "app/routes/users.py"
@@ -133,11 +133,11 @@
       "name": "Error rate (HTTP 5xx) [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "3.3%",
+      "value": "2.97%",
       "budget": "1%",
       "ok": false,
       "details": [
-        "/api/users/{id} returned 3 server errors out of 36 requests (lookups of customer IDs that do not exist)"
+        "/api/users/{id} returned 3 server errors out of 39 requests (lookups of customer IDs that do not exist)"
       ],
       "files": [
         "app/routes/users.py"
@@ -165,7 +165,7 @@
       "budget": 0,
       "ok": false,
       "details": [
-        "12938x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items",
+        "6900x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items",
         "1x slow: SELECT COUNT(*) AS n FROM orders WHERE user_id = ?  ->  plan: SCAN orders"
       ],
       "files": [
@@ -178,11 +178,11 @@
       "name": "Repeated log warnings",
       "kind": "inferential",
       "area": "runtime",
-      "value": 10615,
+      "value": 5562,
       "budget": "< 100",
       "ok": false,
       "details": [
-        "10615x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
+        "5562x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
       ],
       "files": [
         "app/services/pricing.py"
