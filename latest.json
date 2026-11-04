@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T09:53:09+00:00",
+  "generated_at": "2026-11-04T09:41:55+00:00",
   "commit": "f42db7b",
   "healthy": false,
   "failed": 8,
@@ -85,11 +85,11 @@
       "name": "p95 latency /api/orders [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "1960 ms",
+      "value": "1823 ms",
       "budget": "500 ms",
       "ok": false,
       "details": [
-        "p50 1599.9 ms, p95 1960.3 ms, DB time p95 1606.4 ms over 52 requests"
+        "p50 1588.9 ms, p95 1822.8 ms, DB time p95 1487.8 ms over 51 requests"
       ],
       "files": [
         "app/routes/orders.py"
@@ -101,11 +101,11 @@
       "name": "p95 latency /api/users/{id} [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "80 ms",
+      "value": "124 ms",
       "budget": "300 ms",
       "ok": true,
       "details": [
-        "p50 57.4 ms, p95 79.6 ms, DB time p95 9.9 ms over 36 requests"
+        "p50 97.6 ms, p95 123.5 ms, DB time p95 2.3 ms over 36 requests"
       ],
       "files": [
         "app/routes/users.py"
@@ -133,7 +133,7 @@
       "name": "Error rate (HTTP 5xx) [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "3.16%",
+      "value": "3.19%",
       "budget": "1%",
       "ok": false,
       "details": [
@@ -165,7 +165,7 @@
       "budget": 0,
       "ok": false,
       "details": [
-        "8800x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items"
+        "7400x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items"
       ],
       "files": [
         "migrations/"
@@ -177,11 +177,11 @@
       "name": "Repeated log warnings",
       "kind": "inferential",
       "area": "runtime",
-      "value": 7099,
+      "value": 5970,
       "budget": "< 100",
       "ok": false,
       "details": [
-        "7099x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
+        "5970x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
       ],
       "files": [
         "app/services/pricing.py"
