@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T09:45:31+00:00",
+  "generated_at": "2026-11-06T09:42:00+00:00",
   "commit": "f42db7b",
   "healthy": false,
   "failed": 8,
@@ -85,11 +85,11 @@
       "name": "p95 latency /api/orders [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "1878 ms",
+      "value": "1843 ms",
       "budget": "500 ms",
       "ok": false,
       "details": [
-        "p50 1660.6 ms, p95 1877.9 ms, DB time p95 1569.8 ms over 52 requests"
+        "p50 1658.6 ms, p95 1843.2 ms, DB time p95 1536.5 ms over 49 requests"
       ],
       "files": [
         "app/routes/orders.py"
@@ -101,11 +101,11 @@
       "name": "p95 latency /api/users/{id} [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "100 ms",
+      "value": "103 ms",
       "budget": "300 ms",
       "ok": true,
       "details": [
-        "p50 43.3 ms, p95 99.7 ms, DB time p95 3.9 ms over 37 requests"
+        "p50 80.9 ms, p95 103.0 ms, DB time p95 13.8 ms over 36 requests"
       ],
       "files": [
         "app/routes/users.py"
@@ -133,11 +133,11 @@
       "name": "Error rate (HTTP 5xx) [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "3.12%",
+      "value": "3.3%",
       "budget": "1%",
       "ok": false,
       "details": [
-        "/api/users/{id} returned 3 server errors out of 37 requests (lookups of customer IDs that do not exist)"
+        "/api/users/{id} returned 3 server errors out of 36 requests (lookups of customer IDs that do not exist)"
       ],
       "files": [
         "app/routes/users.py"
@@ -161,11 +161,12 @@
       "name": "Slow queries doing full table scans (EXPLAIN QUERY PLAN)",
       "kind": "computational",
       "area": "runtime",
-      "value": 1,
+      "value": 2,
       "budget": 0,
       "ok": false,
       "details": [
-        "6600x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items"
+        "7050x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items",
+        "1x slow: SELECT COUNT(*) AS n FROM orders WHERE user_id = ?  ->  plan: SCAN orders"
       ],
       "files": [
         "migrations/"
@@ -177,11 +178,11 @@
       "name": "Repeated log warnings",
       "kind": "inferential",
       "area": "runtime",
-      "value": 5313,
+      "value": 5687,
       "budget": "< 100",
       "ok": false,
       "details": [
-        "5313x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
+        "5687x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
       ],
       "files": [
         "app/services/pricing.py"
