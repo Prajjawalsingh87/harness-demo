@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T09:04:36+00:00",
+  "generated_at": "2026-11-08T09:21:32+00:00",
   "commit": "f42db7b",
   "healthy": false,
   "failed": 8,
@@ -73,7 +73,7 @@
         "tests/test_api.py::test_orders only checks that something exists or is truthy; it would pass even if the API returned wrong data or an error",
         "tests/test_api.py::test_user only checks that something exists or is truthy; it would pass even if the API returned wrong data or an error",
         "tests/test_api.py::test_health only checks that something exists or is truthy; it would pass even if the API returned wrong data or an error",
-        "Line coverage of app/: 90% (coverage alone does not prove the tests catch bugs)"
+        "Line coverage of app/: 91% (coverage alone does not prove the tests catch bugs)"
       ],
       "files": [
         "tests/test_api.py"
@@ -85,11 +85,11 @@
       "name": "p95 latency /api/orders [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "1848 ms",
+      "value": "1883 ms",
       "budget": "500 ms",
       "ok": false,
       "details": [
-        "p50 1610.1 ms, p95 1848.0 ms, DB time p95 1584.8 ms over 49 requests"
+        "p50 1677.2 ms, p95 1883.0 ms, DB time p95 1601.5 ms over 50 requests"
       ],
       "files": [
         "app/routes/orders.py"
@@ -101,11 +101,11 @@
       "name": "p95 latency /api/users/{id} [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "104 ms",
+      "value": "128 ms",
       "budget": "300 ms",
       "ok": true,
       "details": [
-        "p50 94.2 ms, p95 104.3 ms, DB time p95 2.1 ms over 36 requests"
+        "p50 26.0 ms, p95 128.1 ms, DB time p95 2.9 ms over 36 requests"
       ],
       "files": [
         "app/routes/users.py"
@@ -133,7 +133,7 @@
       "name": "Error rate (HTTP 5xx) [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "3.3%",
+      "value": "3.23%",
       "budget": "1%",
       "ok": false,
       "details": [
@@ -165,7 +165,7 @@
       "budget": 0,
       "ok": false,
       "details": [
-        "13886x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items"
+        "9598x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items"
       ],
       "files": [
         "migrations/"
@@ -177,11 +177,11 @@
       "name": "Repeated log warnings",
       "kind": "inferential",
       "area": "runtime",
-      "value": 11467,
+      "value": 7763,
       "budget": "< 100",
       "ok": false,
       "details": [
-        "11467x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
+        "7763x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
       ],
       "files": [
         "app/services/pricing.py"
