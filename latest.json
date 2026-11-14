@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T09:52:19+00:00",
+  "generated_at": "2026-11-14T09:16:08+00:00",
   "commit": "f42db7b",
   "healthy": false,
   "failed": 8,
@@ -85,11 +85,11 @@
       "name": "p95 latency /api/orders [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "1839 ms",
+      "value": "1857 ms",
       "budget": "500 ms",
       "ok": false,
       "details": [
-        "p50 1639.0 ms, p95 1838.6 ms, DB time p95 1564.9 ms over 52 requests"
+        "p50 1614.3 ms, p95 1857.4 ms, DB time p95 1548.1 ms over 51 requests"
       ],
       "files": [
         "app/routes/orders.py"
@@ -101,11 +101,11 @@
       "name": "p95 latency /api/users/{id} [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "72 ms",
+      "value": "116 ms",
       "budget": "300 ms",
       "ok": true,
       "details": [
-        "p50 28.0 ms, p95 71.8 ms, DB time p95 3.1 ms over 39 requests"
+        "p50 58.1 ms, p95 116.0 ms, DB time p95 2.2 ms over 39 requests"
       ],
       "files": [
         "app/routes/users.py"
@@ -133,7 +133,7 @@
       "name": "Error rate (HTTP 5xx) [live (Vercel)]",
       "kind": "computational",
       "area": "runtime",
-      "value": "3.03%",
+      "value": "3.09%",
       "budget": "1%",
       "ok": false,
       "details": [
@@ -165,9 +165,8 @@
       "budget": 0,
       "ok": false,
       "details": [
-        "7000x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items",
-        "1x slow: SELECT COUNT(*) AS n FROM orders WHERE user_id = ?  ->  plan: SCAN orders",
-        "1x slow: SELECT name, city FROM users WHERE id = ?  ->  plan: SEARCH users USING INTEGER PRIMARY KEY (rowid=?)"
+        "14126x slow: SELECT SUM(qty * unit_price) AS total FROM order_items WHERE order_id = ?  ->  plan: SCAN order_items",
+        "1x slow: SELECT COUNT(*) AS n FROM orders WHERE user_id = ?  ->  plan: SCAN orders"
       ],
       "files": [
         "migrations/"
@@ -179,11 +178,11 @@
       "name": "Repeated log warnings",
       "kind": "inferential",
       "area": "runtime",
-      "value": 5646,
+      "value": 11667,
       "budget": "< 100",
       "ok": false,
       "details": [
-        "5646x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
+        "11667x WARNING app.pricing pricing fallback: no tax rate for city=<value> using default <n>"
       ],
       "files": [
         "app/services/pricing.py"
